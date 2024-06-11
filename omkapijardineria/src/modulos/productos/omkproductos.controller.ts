@@ -19,7 +19,7 @@ export class ProductosController {
 
   @Get(':codigo')
   findOne(@Param('codigo') codigo: string) {
-    return this.productosService.findOne(+codigo);
+    return this.productosService.findOne(codigo);
   }
 
   @Patch(':codigo')

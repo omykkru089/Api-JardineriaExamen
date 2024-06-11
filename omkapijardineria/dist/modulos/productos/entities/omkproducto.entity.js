@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], Producto.prototype, "nombre", void 0);
 __decorate([
-    (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.Column)('text', { nullable: true }),
     __metadata("design:type", String)
 ], Producto.prototype, "codgama", void 0);
 __decorate([

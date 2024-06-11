@@ -17,13 +17,13 @@ export class CreateProductoDto {
     @IsString()
     descripcion?: string;
 
-    @IsDecimal()
+    @IsString()
     stock?: number;
 
-    @IsDecimal()
+    @IsString()
     pvp?: number;
 
-    @IsDecimal()
+    @IsString()
     pcoste?: number;
 
     @IsString()

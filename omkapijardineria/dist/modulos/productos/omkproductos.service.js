@@ -19,32 +19,39 @@ const omkproducto_entity_1 = require("./entities/omkproducto.entity");
 const omkgamas_service_1 = require("../gamas/omkgamas.service");
 const typeorm_2 = require("typeorm");
 let ProductosService = class ProductosService {
-    constructor(productosRepository, gamasServie) {
+    constructor(productosRepository, gamasService) {
         this.productosRepository = productosRepository;
-        this.gamasServie = gamasServie;
+        this.gamasService = gamasService;
     }
     async create(createProductoDto) {
         try {
             const { codgama, ...campos } = createProductoDto;
             const producto = this.productosRepository.create({ ...campos });
-            const gamaobj = await this.gamasServie.findOne(codgama);
+            const gamaobj = await this.gamasService.findOne(codgama);
             producto.gama = gamaobj;
             await this.productosRepository.save(producto);
             return {
                 status: 200,
                 data: producto,
-                msg: 'Libro insertado correctamente'
+                msg: 'Producto insertado correctamente'
             };
         }
         catch (error) {
-            return new common_1.InternalServerErrorException('Error en BD');
+            console.error('Error:', error);
+            throw new common_1.InternalServerErrorException('Error en BD');
         }
     }
     findAll() {
-        return `This action returns all productos`;
+        const productos = this.productosRepository.find();
+        return productos;
     }
-    findOne(id) {
-        return `This action returns a #${id} producto`;
+    findOne(codigo) {
+        const gama = this.productosRepository.findOne({
+            where: {
+                codigo
+            }
+        });
+        return gama;
     }
     update(id, updateProductoDto) {
         return `This action updates a #${id} producto`;

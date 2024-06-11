@@ -9,38 +9,69 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class ProductosService {
 
-  constructor(
+  // constructor(
+  //   @InjectRepository(Producto)
+  //   private readonly productosRepository: Repository<Producto>,
+  //   private readonly gamasServie: GamasService,
+  //   ){
+
+  // }
+  // async create(createProductoDto: CreateProductoDto) {
+  //   try{
+  //       const {codgama, ...campos } = createProductoDto; //ES6
+  //       const producto = this.productosRepository.create({...campos});
+  //       const gamaobj = await this.gamasServie.findOne(codgama);
+  //       producto.gama = gamaobj; //direccion del objeto gama relacionado
+  //       await this.productosRepository.save(producto);
+    
+  //       return {
+  //         status: 200,
+  //         data: producto,
+  //         msg: 'Libro insertado correctamente'
+  //       };
+  //   }catch(error){
+  //     return new InternalServerErrorException('Error en BD');
+  //   }
+    
+  // }
+constructor(
     @InjectRepository(Producto)
     private readonly productosRepository: Repository<Producto>,
-    private readonly gamasServie: GamasService,
-    ){
+    private readonly gamasService: GamasService, // Corregido: gamasService
+  ) {}
 
-  }
   async create(createProductoDto: CreateProductoDto) {
-    try{
-        const {codgama, ...campos } = createProductoDto; //ES6
-        const producto = this.productosRepository.create({...campos});
-        const gamaobj = await this.gamasServie.findOne(codgama);
-        producto.gama = gamaobj; //direccion del objeto gama relacionado
-        await this.productosRepository.save(producto);
-    
-        return {
-          status: 200,
-          data: producto,
-          msg: 'Libro insertado correctamente'
-        };
-    }catch(error){
-      return new InternalServerErrorException('Error en BD');
+    try {
+      const { codgama, ...campos } = createProductoDto; // ES6
+      const producto = this.productosRepository.create({ ...campos });
+      const gamaobj = await this.gamasService.findOne(codgama);
+      producto.gama = gamaobj; // Dirección del objeto gama relacionado
+      await this.productosRepository.save(producto);
+
+      return {
+        status: 200,
+        data: producto,
+        msg: 'Producto insertado correctamente'
+      };
+    } catch (error) {
+      console.error('Error:', error);
+      throw new InternalServerErrorException('Error en BD');
     }
-    
   }
 
   findAll() {
-    return `This action returns all productos`;
+    const productos = this.productosRepository.find();
+
+    return productos;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} producto`;
+  findOne(codigo: string) {
+    const gama= this.productosRepository.findOne({
+      where:{
+        codigo
+      }
+    });
+    return gama;
   }
 
   update(id: number, updateProductoDto: UpdateProductoDto) {
@@ -62,4 +93,5 @@ export class ProductosService {
       throw new InternalServerErrorException('sysadmin ...')
     }
   }
+
 }

@@ -28,7 +28,7 @@ let ProductosController = class ProductosController {
         return this.productosService.findAll();
     }
     findOne(codigo) {
-        return this.productosService.findOne(+codigo);
+        return this.productosService.findOne(codigo);
     }
     update(codigo, updateProductoDto) {
         return this.productosService.update(+codigo, updateProductoDto);

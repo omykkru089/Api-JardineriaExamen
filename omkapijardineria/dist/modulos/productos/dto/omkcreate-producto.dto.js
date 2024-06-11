@@ -35,15 +35,15 @@ __decorate([
     __metadata("design:type", String)
 ], CreateProductoDto.prototype, "descripcion", void 0);
 __decorate([
-    (0, class_validator_1.IsDecimal)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", Number)
 ], CreateProductoDto.prototype, "stock", void 0);
 __decorate([
-    (0, class_validator_1.IsDecimal)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", Number)
 ], CreateProductoDto.prototype, "pvp", void 0);
 __decorate([
-    (0, class_validator_1.IsDecimal)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", Number)
 ], CreateProductoDto.prototype, "pcoste", void 0);
 __decorate([

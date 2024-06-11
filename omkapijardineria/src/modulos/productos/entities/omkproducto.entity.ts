@@ -14,7 +14,7 @@ export class Producto {
     })
     nombre: string;
 
-    @Column('text', )
+    @Column('text',{nullable:true} )
     codgama: string;
 
     @Column('text', {
